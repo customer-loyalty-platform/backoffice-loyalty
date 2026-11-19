@@ -1,0 +1,109 @@
+import type { PendingAction, AuditLogEntry } from '@/api/contracts/audit.contract';
+
+export const mockPendingActions: PendingAction[] = [
+  {
+    id: 'act-883910293',
+    maker: {
+      id: 'adm-0000-0003',
+      username: 'cs.agent',
+      role: 'OPS_CS',
+    },
+    action_type: 'POINT_ADJUSTMENT',
+    target_resource: 'members/usr_99201920/adjustments',
+    payload: {
+      member_id: 'usr_99201920',
+      adjustment_type: 'CREDIT',
+      amount: 1000,
+      reason_code: 'SYSTEM_DISRUPTION_COMPENSATION',
+      notes: 'Manual compensation for station turnstile gate outage on Nov 8.',
+      external_ticket_ref: 'CS-TICKET-88910',
+    },
+    status: 'PENDING',
+    created_at: '2026-11-09T09:15:00Z',
+  },
+  {
+    id: 'act-883910294',
+    maker: {
+      id: 'adm-0000-0002',
+      username: 'campaign.lead',
+      role: 'CAMPAIGN_SPEC',
+    },
+    action_type: 'VOUCHER_BATCH_REVOKE',
+    target_resource: 'voucher-batches/btc-0002-transit/revoke',
+    payload: {
+      batch_id: 'btc-0002-transit',
+      voucher_code: 'MRT-TRIP-991203',
+      reason: 'Detected security breach on partner POS',
+    },
+    status: 'PENDING',
+    created_at: '2026-11-09T08:00:00Z',
+  },
+  {
+    id: 'act-883910290',
+    maker: {
+      id: 'adm-0000-0003',
+      username: 'cs.agent',
+      role: 'OPS_CS',
+    },
+    checker: {
+      id: 'adm-0000-0001',
+      username: 'superadmin',
+    },
+    action_type: 'POINT_ADJUSTMENT',
+    target_resource: 'members/usr_88301142/adjustments',
+    payload: {
+      member_id: 'usr_88301142',
+      adjustment_type: 'CREDIT',
+      amount: 500,
+      reason_code: 'REFERRAL_MANUAL_CREDIT',
+      notes: 'Referral reward credited manually due to system sync delay.',
+    },
+    status: 'APPROVED',
+    created_at: '2026-11-08T10:00:00Z',
+    resolved_at: '2026-11-08T11:30:00Z',
+  },
+];
+
+export const mockAuditLogs: AuditLogEntry[] = [
+  {
+    id: 'aud-001',
+    admin: {
+      id: 'adm-0000-0001',
+      username: 'superadmin',
+      role: 'SUPER_ADMIN',
+    },
+    action: 'APPROVE_PENDING_ACTION',
+    target_resource: 'admin_pending_actions/act-883910290',
+    new_value: { status: 'APPROVED', action_type: 'POINT_ADJUSTMENT' },
+    ip_address: '192.168.10.45',
+    created_at: '2026-11-08T11:30:00Z',
+  },
+  {
+    id: 'aud-002',
+    admin: {
+      id: 'adm-0000-0002',
+      username: 'campaign.lead',
+      role: 'CAMPAIGN_SPEC',
+    },
+    action: 'CREATE_DYNAMIC_RULE',
+    target_resource: 'dynamic_rules/rul-0002-weekend',
+    new_value: { rule_code: 'RULE_WEEKEND_FNB_BOOST', multiplier: 1.5 },
+    ip_address: '192.168.10.72',
+    created_at: '2026-10-28T14:30:00Z',
+  },
+  {
+    id: 'aud-003',
+    admin: {
+      id: 'adm-0000-0003',
+      username: 'cs.agent',
+      role: 'OPS_CS',
+    },
+    action: 'UPDATE_MEMBER_STATUS',
+    target_resource: 'members/usr_77192003',
+    old_value: { status: 'ACTIVE' },
+    new_value: { status: 'SUSPENDED', reason: 'Suspected suspicious velocity' },
+    ip_address: '192.168.10.99',
+    created_at: '2026-11-05T12:00:00Z',
+  },
+];
+
